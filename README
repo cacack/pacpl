@@ -1,0 +1,59 @@
+*****************************************************************************
+Perl Audio Converter:
+
+A tool for converting multiple audio types from one format to another. 
+It supports the following audio extensions:
+
+AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, FAP, FLA, FLAC, IRCAM, LA, 
+LPAC, M4A, M4B, MAT, MAT4, MAT5, MMF, MP2, MP3, MP3HD, MP4, MPC, MPP, 
+NIST, OFF, OFR, OFS, OGG, OPUS, PAC, PAF, PVF, RA, RAM, RAW, SD2, SF, 
+SHN, SMP, SND, SPX, TTA, VOC, W64, WAV, WMA, and WV. 
+
+It can also rip audio tracks from the following video extensions: 
+
+RM, RV, ASF, DIVX, MPG, MKV, MPEG, AVI, MOV, OGM, QT, VCD, SVCD, M4V, NSV, 
+NUV, PSP, SMK, VOB, FLV, and WMV. 
+
+A CD ripping function with CDDB support, batch conversion, tag preservation 
+for most supported formats, independent tag reading/writing, and extensions 
+for dolphin, and konqueror are also provided.
+*****************************************************************************
+
+below is a list of supported applications, and the minimum version
+requirement.
+
+app                 version    address
+========================================================================
+aften                 0.05     http://sourceforge.net/projects/aften/
+mp3HD Toolkit        1.4.2     http://www.afterdawn.com/software/general/download_splash.cfm/mp3hd_toolkit_linux
+lame                3.99.5     http://lame.sourceforge.net
+toolame               0.2l     http://sourceforge.net/projects/toolame/
+twolame             0.3.13     http://www.twolame.org
+gogo                  3.13     https://github.com/teragonaudio/gogo-no-coda
+bladeenc          0.92.1b5     http://www.osl.iu.edu/~jsquyres/bladeenc/
+flac                 1.2.1     http://flac.sourceforge.net
+mac                   3.99     http://etree.org/shnutils/shntool/support/formats/ape/unix/3.99-u4-b5/
+shorten              3.6.1     http://www.etree.org/shnutils/shorten/
+faac                  1.26     http://www.audiocoding.com/downloads.html **(1.28 is not supported)**
+faad                   2.7     http://www.audiocoding.com/downloads.html
+cdparanoia            10.2     http://www.xiph.org/paranoia
+oggenc/oggdec        1.4.0     http://www.vorbis.com
+mplayer            1.0pre7     http://www.mplayerhq.hu
+speexenc            1.2rc1     http://www.speex.org
+speexdec            1.2rc1     http://www.speex.org
+sndfile-convert     1.0.25     http://www.mega-nerd.com/libsndfile/
+mpcenc                1.30     http://www.musepack.net
+mpcdec                1.00     http://www.musepack.net
+wavpack             4.60.1     http://www.wavpack.com
+ofr/ofs              4.520     http://www.LosslessAudio.org
+ttaenc               3.4.1     http://www.true-audio.com
+lpac                  3.08     http://www.nue.tu-berlin.de/menue/mitarbeiter/ehemalige_mitarbeiter/tilman_liebchen/lpac_-_lossless_audio_codec_for_windows_and_linux/
+ffmpeg                 2.0     http://www.ffmpeg.org/
+la                     0.4     http://www.lossless-audio.com
+bonk                   0.6     http://www.logarithmic.net/pfh/bonk
+sox                12.17.8     http://sox.sourceforge.net/
+flake                 0.11     http://flake-enc.sourceforge.net/download.html
+opus                 1.0.3     http://www.opus-codec.org/downloads/
+
+For help and more information, see the manual page for pacpl
+
