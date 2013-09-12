@@ -5,18 +5,25 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-    |-----handy-ruler------------------------------------------------------|
+     |-----handy-ruler------------------------------------------------------|
 pacpl: Perl Audio Converter
 pacpl:
-pacpl: Perl Audio Converter is a tool for converting multiple audio types 
-pacpl: from one format to another. It supports AAC, AC3, AIFF, APE, AU,AVR, 
-pacpl: BONK, CAF, CDR, FAP, FLA, FLAC,IRCAM, LA, LPAC, MAT, MAT4, MAT5,M4A, 
-pacpl: MP2, MP3, MP4, MPC, MPP, NIST, OFR, OFS, OGG, PAC, PAF, PVF, RA,RAM, 
-pacpl: RAW, SD2, SF, SHN, SMP, SND, SPX, TTA, VOC, W64, WAV, WMA, and WV. 
-pacpl: It can also convert audio from the following video extensions:RM,RV, 
-pacpl: ASF, DivX, MPG, MKV, MPEG, AVI, MOV, OGM, QT, VCD, SVCD, M4V, NSV, 
-pacpl: NUV, PSP, SMK, VOB, FLV, and WMV. A CD ripping function with CDDB 
-pacpl: support, batch conversion, tag preservation for most supported 
-pacpl: formats, independent tag reading/writing, and extensions for
-pacpl: Dolphin, D3lphin, and Konqueror are also provided.
-pacpl:
+pacpl: A CLI tool for converting multiple audio types from one format 
+pacpl: to another.
+papcl:
+pacpl: It supports the following audio formats:
+pacpl: ----------------------------------------
+pacpl: AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, DTS, FAP, FLA, FLAC, IRCAM, 
+pacpl: LA, LPAC, MAT, MAT4, MAT5, M4A, MP2, MP3, MP4, MPC, MPP, NIST, OFF,
+pacpl: OFR, OFS, OPUS, OGG, PAC, PAF, PVF, RA, RAM, RAW, SD2, SF, SHN, SMP, 
+pacpl: SND, SPX, TTA, VOC, VQF, W64, WAV, WMA, and WV. 
+pacpl: 
+pacpl: It can also extract audio from the following video extensions:
+pacpl: --------------------------------------------------------------
+pacpl: RM, RV, ASF, DivX, MPG, MKV, MPEG, AVI, MOV, OGM, QT, VCD, SVCD, 
+pacpl: M4V, NSV, NUV, PSP, SMK, VOB, FLV, and WMV. 
+pacpl: 
+pacpl: A CD ripping function with CDDB support, batch conversion, 
+pacpl: tag preservation for most supported formats, independent tag 
+pacpl: reading & writing, and extensions for Dolphin & Konqueror are 
+pacpl: also provided.

@@ -4,7 +4,7 @@ Perl Audio Converter:
 A tool for converting multiple audio types from one format to another. 
 It supports the following audio extensions:
 
-AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, FAP, FLA, FLAC, IRCAM, LA, 
+AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, DTS, FAP, FLA, FLAC, IRCAM, LA, 
 LPAC, M4A, M4B, MAT, MAT4, MAT5, MMF, MP2, MP3, MP3HD, MP4, MPC, MPP, 
 NIST, OFF, OFR, OFS, OGG, OPUS, PAC, PAF, PVF, RA, RAM, RAW, SD2, SF, 
 SHN, SMP, SND, SPX, TTA, VOC, W64, WAV, WMA, and WV. 
@@ -25,6 +25,7 @@ requirement.
 app                 version    address
 ========================================================================
 aften                 0.05     http://sourceforge.net/projects/aften/
+dcaenc                   2     http://aepatrakov.narod.ru/index/0-2
 mp3HD Toolkit        1.4.2     http://www.afterdawn.com/software/general/download_splash.cfm/mp3hd_toolkit_linux
 lame                3.99.5     http://lame.sourceforge.net
 toolame               0.2l     http://sourceforge.net/projects/toolame/

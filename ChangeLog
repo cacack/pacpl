@@ -1,6 +1,8 @@
 v4.1.0-beta1:
 
-+ added git repository (master/stable/beta/experimental)
++ added git repository (https://github.com/vorzox/pacpl)
++ added support for dcaenc (dts) encoder (requires multi-channel wav as input)
++ added support for dts (default encoder/decoder=ffmpeg)
 + added support for mp3HD
 + added support for aften ac3 encoder
 + added support for twolame mp2 encoder
@@ -16,16 +18,16 @@ v4.1.0-beta1:
 - removed --enable-all configuration option (obsolete)
 
 * updated README to include new/updated URLs for applications
-* updated website pacpl.sourceforge.net
+* updated website pacpl.sourceforge.net (vorzox.wix.com/pacpl)
 * update Makefile.am and configure.ac to comply with current standards
 * removed deprecated use of Switch in favor of given-when-default
-* updated slack-desc to include new formats
+* updated slack-desc: changes layout and included new formats
 * konqueror and dolphin plugins will be installed by default if detected.
   eiher can be diabled respectively by using --disable-appname
 
 % fixed ffmpeg ac3 encoding. specified bitrate was in bits not kilobits
 % fixed ffmpeg tag handling...again...thanks to Dave Allen Barker Jr.
-% fixed pacpl.desktop to include a few missing formats
+% fixed pacpl.desktop to include missing formats
 % fixed return 1 when encoding fails
 % fixed added MP3::Tag->config(write_v24 => 'YES') to allow updating &
   modifying of newer ID3v2 tags.

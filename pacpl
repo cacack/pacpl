@@ -416,6 +416,49 @@ my $opts;
                            },
                },
 
+        dts => {
+
+                DEFAULT_ENCODER => "ffmpeg",
+                DEFAULT_DECODER => "ffmpeg",
+                
+                ENCODER => {
+                             ffmpeg => {
+                                         NAME => "ffmpeg",
+                                         ESTR => sub {
+                                                       $opts = '' if $defopts == 1;
+                                                       $opts = '' if $defopts == 0;
+                                                       "$eopts $opts -y -i %i -strict -2 %o"
+                                                     },
+       
+                                           PROMPT => {
+                                                       NONE => 0,
+                                                     },
+                                       },
+                                       
+                             dcaenc => {
+                                         NAME => "dcaenc",
+                                         ESTR => sub {
+                                                       $opts = "$bitrate" if $defopts == 0;
+                                                       $opts = '' if $defopts == 1;
+                                                       "%i %o $opts"
+                                                     },
+                                       },
+                           },
+                           
+                DECODER => {
+                             ffmpeg => {
+                                         NAME => "ffmpeg",
+                                         DSTR => "-y -i %i %o",
+                                       },
+                           },
+
+                   TAGS => {
+                             READ   => 0,
+                             WRITE  => 0,
+                             MODULE => undef,
+                           },
+               },
+
        opus => {
                 
                 DEFAULT_ENCODER => "opusenc",
@@ -2941,7 +2984,7 @@ A tool for converting multiple audio types from one format to another.
 
 It supports the following audio types: 
 --------------------------------------
-AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, FAP, FLA, FLAC, IRCAM, LA, 
+AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, DTS, FAP, FLA, FLAC, IRCAM, LA,
 LPAC, MAT, MAT4, MAT5, M4A, MMF, MP2, MP3, MP4, MPC, MPP, NIST, OFF, OFR, 
 OFS, OPUS, OGG, PAC, PAF, PVF, RA, RAM, RAW, SD2, SF, SHN, SMP, SND, SPX, 
 TTA, VOC, VQF, W64, WAV, WMA, and WV.
@@ -3391,7 +3434,7 @@ show cddb information for current disc.
 
 =head1 BUGS
 
-Report all bugs to Philip Lyons (vorzox@gmail.com).
+Report all bugs to Philip Lyons (vorzox@gmail.com)
 
 =head1 LICENSING
 
