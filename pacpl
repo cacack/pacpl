@@ -2333,15 +2333,15 @@ sub read_tags {
                                 }
 
       when (/^flac$|^fla$/)	{
-                                        my $flac_tag = $tag_module->new($in_file)->tags();
+                                       my $flac_tag = $tag_module->new($in_file)->tags();
 
-                                       $tag_name{title}   = $flac_tag->{TITLE}       if $flac_tag->{TITLE};
-                                       $tag_name{track}   = $flac_tag->{TRACKNUMBER} if $flac_tag->{TRACKNUMBER};
-                                       $tag_name{artist}  = $flac_tag->{ARTIST}      if $flac_tag->{ARTIST};
-                                       $tag_name{album}   = $flac_tag->{ALBUM}       if $flac_tag->{ALBUM};
-                                       $tag_name{comment} = $flac_tag->{DESCRIPTION} if $flac_tag->{DESCRIPTION};
-                                       $tag_name{year}    = $flac_tag->{DATE}        if $flac_tag->{DATE};
-                                       $tag_name{genre}   = $flac_tag->{GENRE}       if $flac_tag->{GENRE};
+                                       $tag_name{title}   = $flac_tag->{TITLE}        ? $flac_tag->{TITLE}       : $flac_tag->{title}         if $flac_tag->{title};
+                                       $tag_name{track}   = $flac_tag->{TRACKNUMBER}  ? $flac_tag->{TRACKNUMBER} : $flac_tag->{tracknumber}   if $flac_tag->{tracknumber};
+                                       $tag_name{artist}  = $flac_tag->{ARTIST}       ? $flac_tag->{ARTIST}      : $flac_tag->{artist}        if $flac_tag->{artist};
+                                       $tag_name{album}   = $flac_tag->{ALBUM}        ? $flac_tag->{ALBUM}       : $flac_tag->{album}         if $flac_tag->{album};
+                                       $tag_name{comment} = $flac_tag->{DESCRIPTION}  ? $flac_tag->{DSCRIPTION}  : $flac_tag->{description}   if $flac_tag->{description};
+                                       $tag_name{year}    = $flac_tag->{DATE}         ? $flac_tag->{DATE}        : $flac_tag->{date}          if $flac_tag->{date};
+                                       $tag_name{genre}   = $flac_tag->{GENRE}        ? $flac_tag->{GENRE}       : $flac_tag->{genre}         if $flac_tag->{genre};
 
                                        return 0;
                                 }
@@ -2425,8 +2425,7 @@ sub write_tags {
                                   $tag_m->{ID3v2}->add_frame("TIT2", "$tag_name{title}")    if defined($tag_name{title});
                                   $tag_m->{ID3v2}->add_frame("TRCK", "$tag_name{track}")    if defined($tag_name{track});
                                   $tag_m->{ID3v2}->add_frame("TPE1", "$tag_name{artist}")   if defined($tag_name{artist});
-                                  $tag_m->{ID3v2}->album("$tag_name{album}")                if defined($tag_name{album});
-                                  #$tag_m->{ID3v2}->add_frame("TALB", "$tag_name{album}")    if defined($tag_name{album});
+                                  $tag_m->{ID3v2}->add_frame("TALB", "$tag_name{album}")    if defined($tag_name{album});
                                   $tag_m->{ID3v2}->comment("$tag_name{comment}")            if defined($tag_name{comment});
                                   $tag_m->{ID3v2}->add_frame("TYER", "$tag_name{year}")     if defined($tag_name{year});
                                   $tag_m->{ID3v2}->add_frame("TCON", "$tag_name{genre}")    if defined($tag_name{genre});
@@ -2474,7 +2473,7 @@ sub write_tags {
        when (/^fla$|^flac$/)  {
                                     $tag_m = Audio::FLAC::Header->new("$out_file");
                                  my $tag_i = $tag_m->tags();
-
+                                 
                                     $tag_i->{TITLE}       = "$tag_name{title}"   if $tag_name{title};
                                     $tag_i->{TRACKNUMBER} = "$tag_name{track}"   if $tag_name{track};
                                     $tag_i->{ARTIST}      = "$tag_name{artist}"  if $tag_name{artist};

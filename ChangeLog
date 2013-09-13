@@ -1,5 +1,6 @@
 v4.1.0-beta1:
 
++ added support for lowercase tags when writing/reading flac metadata
 + added git repository (https://github.com/vorzox/pacpl)
 + added support for dcaenc (dts) encoder (requires multi-channel wav as input)
 + added support for dts (default encoder/decoder=ffmpeg)
