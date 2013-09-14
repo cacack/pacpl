@@ -68,6 +68,8 @@ AC_CHECK_PROG(LPAC, lpac, yes)
 AC_CHECK_PROG(TTAENC, ttaenc, yes)
 AC_CHECK_PROG(WAVPACK, wavpack, yes)
 AC_CHECK_PROG(WVUNPACK, wvunpack, yes)
+AC_CHECK_PROG(SNDFILE, sndfile-convert, yes)
+AC_CHECK_PROG(MPLAYER, mplayer, yes)
 
 
 ###################################

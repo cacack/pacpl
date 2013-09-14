@@ -593,6 +593,7 @@ KONQ
 INSTALL_DOLP_FALSE
 INSTALL_DOLP_TRUE
 DOLP
+SNDFILE
 WVUNPACK
 WAVPACK
 TTAENC
@@ -3720,6 +3721,80 @@ WVUNPACK=$ac_cv_prog_WVUNPACK
 if test -n "$WVUNPACK"; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $WVUNPACK" >&5
 $as_echo "$WVUNPACK" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+# Extract the first word of "sndfile-convert", so it can be a program name with args.
+set dummy sndfile-convert; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_prog_SNDFILE+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -n "$SNDFILE"; then
+  ac_cv_prog_SNDFILE="$SNDFILE" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_prog_SNDFILE="yes"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+fi
+fi
+SNDFILE=$ac_cv_prog_SNDFILE
+if test -n "$SNDFILE"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $SNDFILE" >&5
+$as_echo "$SNDFILE" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+# Extract the first word of "mplayer", so it can be a program name with args.
+set dummy mplayer; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_prog_MPLAYER+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  if test -n "$MPLAYER"; then
+  ac_cv_prog_MPLAYER="$MPLAYER" # Let the user override the test.
+else
+as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_prog_MPLAYER="yes"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+fi
+fi
+MPLAYER=$ac_cv_prog_MPLAYER
+if test -n "$MPLAYER"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $MPLAYER" >&5
+$as_echo "$MPLAYER" >&6; }
 else
   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }

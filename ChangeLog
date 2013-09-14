@@ -1,9 +1,21 @@
 v4.1.0-beta1:
 
+[9-14-2013]
+* updated extra/mod-install.sh (removed Switch module)
+* updated extra/mod-install-kubuntu.sh (renamed to mod-install-ubuntu.sh)
+    -  removed liboggvorbis-perl
+    +  added various required modules/libs for Ogg::Vorbis::Header
+    +  added section to install basic encoders/decoders
+    +  added section to fix apt repository /var/lib/apt/lists
+       to be able to install restricted-extras package.
+    =  tested in both Ubuntu & Kubuntu 13.04
+
+[9-12-2013]
 + added support for lowercase tags when writing/reading flac metadata
 + added git repository (https://github.com/vorzox/pacpl)
 + added support for dcaenc (dts) encoder (requires multi-channel wav as input)
 + added support for dts (default encoder/decoder=ffmpeg)
+[9-10-2013]
 + added support for mp3HD
 + added support for aften ac3 encoder
 + added support for twolame mp2 encoder
