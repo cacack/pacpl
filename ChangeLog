@@ -1,6 +1,26 @@
-v4.1.0-beta1:
+Pre-RC1:
+
+[9-18-2013]
+
++ added ffmpeg-conf.sh and libav-conf.sh to extra/ dir.
+  this shows what libs and options are needed for full support for pacpl
++ added support avconv (libav) encoder/decoder
++ added ffmpeg/avconv support to various formats as available encoder/decoder
++ added support for adts audio format
+
+% fixed mpc tagging using the new SV8 release. (options have to come BEFORE
+  the input and output file)
+% fixed all ffmpeg encode instances to apply $eopts (user options) when
+  --defopts=0 to the output file as opposed to the input. 
+
+* updated codecs.conf to include new formats that can be configured
+* updated extra/README.extra
+* update Makefile.am
+    * use wildcard * for LANG_MODS instead of listing them individually
+    * remove -t flag for $(INSTALL_DATA)
 
 [9-14-2013]
+
 * updated extra/mod-install.sh (removed Switch module)
 * updated extra/mod-install-kubuntu.sh (renamed to mod-install-ubuntu.sh)
     -  removed liboggvorbis-perl
@@ -10,18 +30,23 @@ v4.1.0-beta1:
        to be able to install restricted-extras package.
     =  tested in both Ubuntu & Kubuntu 13.04
 
+    Note: When running the script choose the default [yes] for all prompts
+
 [9-12-2013]
+
 + added support for lowercase tags when writing/reading flac metadata
 + added git repository (https://github.com/vorzox/pacpl)
 + added support for dcaenc (dts) encoder (requires multi-channel wav as input)
 + added support for dts (default encoder/decoder=ffmpeg)
+
 [9-10-2013]
-+ added support for mp3HD
+
++ added support for mp3HD audio format
 + added support for aften ac3 encoder
 + added support for twolame mp2 encoder
-+ added support for opus encode/decode
-+ added support for off (OptimumFrog - Float)
-+ added support for TwinVQ (vqf) decoding (no available encoder)
++ added support for opus audio format
++ added support for off (OptimumFrog - Float) audio format
++ added support for TwinVQ (vqf) audio format (decode only)
 + added Greek/Hellenic translation thanks to Evangelos Apostolakos
 + added required module CDDB (this goes along with CDDB_get)
 
@@ -29,14 +54,14 @@ v4.1.0-beta1:
 - removed pacpl gui KMDR
 - removed support for d3lphin (obsolete)
 - removed --enable-all configuration option (obsolete)
+- removed deprecated use of Switch in favor of given-when-default
 
 * updated README to include new/updated URLs for applications
 * updated website pacpl.sourceforge.net (vorzox.wix.com/pacpl)
 * update Makefile.am and configure.ac to comply with current standards
-* removed deprecated use of Switch in favor of given-when-default
-* updated slack-desc: changes layout and included new formats
+* updated slack-desc: changes layout and includes new formats
 * konqueror and dolphin plugins will be installed by default if detected.
-  eiher can be diabled respectively by using --disable-appname
+  eiher can be disabled respectively by using --disable-appname
 
 % fixed ffmpeg ac3 encoding. specified bitrate was in bits not kilobits
 % fixed ffmpeg tag handling...again...thanks to Dave Allen Barker Jr.

@@ -3,8 +3,8 @@
 # Copyright (C) 2007-2013 Philip Lyons (vorzox@gmail.com)
 
 AC_PACKAGE_NAME(Perl Audio Converter)
-AC_PACKAGE_TARNAME(pacpl-4.1.0-beta1.tar.gz)
-AC_PACKAGE_VERSION(4.1.0-beta1)
+AC_PACKAGE_TARNAME(pacpl-4.1.0.tar.gz)
+AC_PACKAGE_VERSION(4.1.0)
 AC_PACKAGE_BUGREPORT(vorzox@gmail.com)
 
 m4_include([aclocal/ax_prog_perl_modules.m4])
@@ -12,7 +12,7 @@ m4_include([aclocal/ax_prog_perl_modules.m4])
 AC_PROG_PERL_VERSION(5.18.0)
 AC_PREREQ([2.69])
 
-AC_INIT([pacpl],[4.1.0-beta1])
+AC_INIT([pacpl],[4.1.0])
 
 AM_INIT_AUTOMAKE
 

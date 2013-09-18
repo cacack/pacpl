@@ -29,21 +29,23 @@ ACLOCAL_M4 = ./aclocal.m4
 
 DOCS = README AUTHORS TODO NEWS
 
-LANG_MODS = po/ca.po \
-	    po/de.po \
-	    po/en_US.po \
-	    po/es.po \
-	    po/et.po \
-	    po/fr_FR.po \
-	    po/GR.po \
-	    po/it_IT.po \
-	    po/nl_NL.po \
-	    po/pl.po \
-	    po/pt.po \
-	    po/ro.po \
-	    po/ru_RU.po \
-	    po/tr.po \
-	    po/zh_CN.po
+LANG_MODS = po/*
+
+#LANG_MODS = po/ca.po \
+#	    po/de.po \
+#	    po/en_US.po \
+#	    po/es.po \
+#	    po/et.po \
+#	    po/fr_FR.po \
+#	    po/GR.po \
+#	    po/it_IT.po \
+#	    po/nl_NL.po \
+#	    po/pl.po \
+#	    po/pt.po \
+#	    po/ro.po \
+#	    po/ru_RU.po \
+#	    po/tr.po \
+#	    po/zh_CN.po
 	    
 EXTRAS = extra/README.extra \
 	 extra/README.module \
@@ -121,23 +123,23 @@ main:
 	$(INSTALL) -d $(DOC_DIR)
 	$(INSTALL) -d $(DOC_EXTRA_DIR)
 
-	$(INSTALL) pacpl -t $(DESTDIR)$(bindir)
-	$(INSTALL_DATA) pacpl.conf codecs.conf -t $(CONF_DIR)
-	$(INSTALL_DATA) $(LANG_MODS) -t $(PO_DIR)
-	$(INSTALL_DATA) extra/sample.m -t $(MOD_DIR)
-	$(INSTALL_DATA) pacpl.1.gz -t $(MAN_DIR)
-	$(INSTALL_DATA) $(DOCS) -t $(DOC_DIR)
-	$(INSTALL_DATA) $(EXTRAS) -t $(DOC_EXTRA_DIR)
+	$(INSTALL) pacpl $(DESTDIR)$(bindir)
+	$(INSTALL_DATA) pacpl.conf codecs.conf $(CONF_DIR)
+	$(INSTALL_DATA) $(LANG_MODS) $(PO_DIR)
+	$(INSTALL_DATA) extra/sample.m $(MOD_DIR)
+	$(INSTALL_DATA) pacpl.1.gz $(MAN_DIR)
+	$(INSTALL_DATA) $(DOCS) $(DOC_DIR)
+	$(INSTALL_DATA) $(EXTRAS) $(DOC_EXTRA_DIR)
 
 install-plugins:
 if INSTALL_KONQ
 	$(INSTALL) -d $(KONQ_PLUGDIR)
-	$(INSTALL_DATA) $(KONQDIR)/pacpl.desktop -t $(KONQ_PLUGDIR)
+	$(INSTALL_DATA) $(KONQDIR)/pacpl.desktop $(KONQ_PLUGDIR)
 endif
 
 if INSTALL_DOLP
 	$(INSTALL) -d $(DOLP_PLUGDIR)
-	$(INSTALL_DATA) $(DOLPDIR)/pacpl.desktop -t $(DOLP_PLUGDIR)
+	$(INSTALL_DATA) $(DOLPDIR)/pacpl.desktop $(DOLP_PLUGDIR)
 endif
 
 clean:

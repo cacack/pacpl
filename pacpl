@@ -83,7 +83,7 @@ my
 
 # name/version information
 my $name = "Perl Audio Converter";
-my $version = "4.1.0-beta1";
+my $version = "4.1.0";
 
 # If this option is set, messages/errors will be displayed via kdialog
 my $gui = ''; # set to 1 to turn on.
@@ -368,7 +368,7 @@ my $opts;
                 
                 ENCODER => {
                               sox => {
-                                      NAME => "sox",
+                                      NAME => 'sox',
                                       ESTR => sub { 
                                                     $opts = "-r $freq -c $channels" if $defopts == 1;
                                                     $opts = '' if $defopts == 0;
@@ -384,7 +384,7 @@ my $opts;
                            
                 DECODER => {
                               sox => {
-                                        NAME => "sox",
+                                        NAME => 'sox',
                                         DSTR => sub { "-w -s -r $freq -c $channels $dopts %i %o" },
                                      },
                            },
@@ -403,7 +403,13 @@ my $opts;
                 
                 DECODER => {
                               ffmpeg => {
-                                          NAME => "ffmpeg",
+                                          NAME => 'ffmpeg',
+                                          DSTR => sub { "$dopts -y -i %i %o" },
+                                          PROMPT => { NONE => 0 },
+                                        },
+                                        
+                              avconv => {
+                                          NAME => 'avconv',
                                           DSTR => sub { "$dopts -y -i %i %o" },
                                           PROMPT => { NONE => 0 },
                                         },
@@ -416,6 +422,61 @@ my $opts;
                            },
                },
 
+       adts => {
+
+                DEFAULT_ENCODER => 'ffmpeg',
+                DEFAULT_DECODER => 'ffmpeg',
+                
+                ENCODER => {
+                             ffmpeg => {
+                                         NAME => 'ffmpeg',
+                                         ESTR => sub {
+                                                       $opts = "-ab $bitrate.k -ar $freq -ac $channels -codec:a libfaac" if $defopts == 1;
+                                                       $opts = '' if $defopts == 0;
+                                                       "-y -i %i $opts $eopts -strict -2 %o"
+                                                     },
+                                        PROMPT => {
+                                                    BITRATE   => 1,
+                                                    FREQ      => 1,
+                                                    CHANNELS  => 1,
+                                                  },
+                                        },
+                              
+                              avconv => {
+                                          NAME => 'avconv',
+                                          ESTR => sub {
+                                                        $opts = "-ab $bitrate.k -ar $freq -ac $channels -codec:a libfaac" if $defopts == 1;
+                                                        $opts = '' if $defopts == 0;
+                                                        "-y -i %i $opts $eopts %o"
+                                                      },
+                                          
+                                          PROMPT => {
+                                                      BITRATE  => 1,
+                                                      FREQ     => 1,
+                                                      CHANNELS => 1,
+                                                    },                                                    
+                                        },
+                           },
+                                        
+                DECODER => {
+                             ffmpeg => {
+                                         NAME => 'ffmpeg',
+                                         DSTR => "$dopts -y -i %i %o",
+                                       },
+                             
+                             avconv => {
+                                         NAME => 'avconv',
+                                         DSTR => "$dopts -y -i %i %o",
+                                       },
+                            },
+  
+                    TAGS => {
+                              READ   => 0,
+                              WRITE  => 0,
+                              MODULE => undef,
+                            },
+               },
+                                                    
         dts => {
 
                 DEFAULT_ENCODER => "ffmpeg",
@@ -423,32 +484,46 @@ my $opts;
                 
                 ENCODER => {
                              ffmpeg => {
-                                         NAME => "ffmpeg",
+                                         NAME => 'ffmpeg',
                                          ESTR => sub {
                                                        $opts = '' if $defopts == 1;
                                                        $opts = '' if $defopts == 0;
-                                                       "$eopts $opts -y -i %i -strict -2 %o"
+                                                       "-y -i %i $opts $eopts -strict -2 -codec:a libfaac %o"
                                                      },
        
-                                           PROMPT => {
-                                                       NONE => 0,
+                                           PROMPT => { NONE => 0, },
+                                       },
+                                       
+                             avconv => {
+                                         NAME => 'avconv',
+                                         ESTR => sub {
+                                                       $opts = '' if $defopts == 1 or $defopts == 0;
+                                                       "-y -i %i $opts $eopts -codec:a libfaac %o",
                                                      },
+                                           PROMPT => { NONE => 0, },
                                        },
                                        
                              dcaenc => {
-                                         NAME => "dcaenc",
+                                         NAME => 'dcaenc',
                                          ESTR => sub {
                                                        $opts = "$bitrate" if $defopts == 0;
                                                        $opts = '' if $defopts == 1;
                                                        "%i %o $opts"
                                                      },
+                                                     
+                                         PROMPT => { NONE => 0, },
                                        },
                            },
                            
                 DECODER => {
                              ffmpeg => {
-                                         NAME => "ffmpeg",
-                                         DSTR => "-y -i %i %o",
+                                         NAME => 'ffmpeg',
+                                         DSTR => "$dopts -y -i %i %o",
+                                       },
+                                       
+                             avconv => {
+                                         NAME => 'avconv',
+                                         DSTR => "$dopts -y -i %i %o",
                                        },
                            },
 
@@ -466,7 +541,7 @@ my $opts;
                 
                 ENCODER => {
                              opusenc => {
-                                          NAME => "opusenc",
+                                          NAME => 'opusenc',
                                           ESTR => sub {
                                                         $opts = "--bitrate $bitrate" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
@@ -480,7 +555,7 @@ my $opts;
 
                 DECODER => {
                               opusdec => {
-                                           NAME => "opusdec",
+                                           NAME => 'opusdec',
                                            DSTR => sub { "--force-wav %i %o" },
                                            PROMPT => { NONE => 0 },
                                          },
@@ -489,7 +564,7 @@ my $opts;
                    TAGS => {
                              READ   => 0,
                              WRITE  => 0,
-                             MODULE => 0,
+                             MODULE => undef,
                            },
                },
 
@@ -500,11 +575,11 @@ my $opts;
                 
                 ENCODER => {
                               ffmpeg => {
-                                          NAME => "ffmpeg",
+                                          NAME => 'ffmpeg',
                                           ESTR => sub {
                                                         $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
-                                                        "$eopts -y -i %i $opts %o"
+                                                        "-y -i %i $eopts $opts %o"
                                                       },
                                           
                                           PROMPT => {
@@ -514,8 +589,22 @@ my $opts;
                                                     },
                                         },
                                         
+                              avconv => {
+                                          NAME => 'avconv',
+                                          ESTR => sub {
+                                                        $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                        $opts = '' if $defopts == 0;
+                                                        "-y -i %i $eopts $opts %o"
+                                                      },
+                                          PROMPT => {
+                                                      BITRATE  => 1,
+                                                      FREQ     => 1,
+                                                      CHANNELS => 1,
+                                                    },
+                                        },
+                                        
                              toolame => {
-                                          NAME => "toolame",
+                                          NAME => 'toolame',
                                           ESTR => sub {
                                                         $opts = "-b $bitrate" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
@@ -524,12 +613,11 @@ my $opts;
                                                       
                                           PROMPT => {
                                                       BITRATE => 1,
-                                                      FREQ => 0,
                                                     },
                                         },
                           
                              twolame => {
-                                          NAME => "twolame",
+                                          NAME => 'twolame',
                                           ESTR => sub {
                                                         $opts = "-b $bitrate -s $freq" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
@@ -538,16 +626,16 @@ my $opts;
                                           
                                           PROMPT => {
                                                       BITRATE => 1,
-                                                      FREQ => 1,
+                                                      FREQ    => 1,
                                                     },
                                         },
                                         
                                  sox => {
-                                          NAME => "sox",
+                                          NAME => 'sox',
                                           ESTR => sub {
-                                                        $opts = "-c $channels -r $bitrate" ? $defopts == 1 : '';
-                                                        #$opts = '';
-                                                        "$eopts $opts %i %o"
+                                                        $opts = "-c $channels -r $bitrate" if $defopts == 1;
+                                                        $opts = '' if $defopts == 0;
+                                                        "%i $eopts $opts %o"
                                                       },
 
                                           PROMPT => {
@@ -560,12 +648,17 @@ my $opts;
                 DECODER => {
                               
                               ffmpeg => {
-                                          NAME => "ffmpeg",
+                                          NAME => 'ffmpeg',
                                           DSTR => "$dopts -y -i %i %o",
                                         },
                                         
+                              avconv => {
+                                          NAME => 'avconv',
+                                          DSTR => "%dopts -y -i %i %o",
+                                        },
+                                        
                              mplayer => {
-                                          NAME => "mplayer",
+                                          NAME => 'mplayer',
                                           DSTR => "-vc null -vo null -ao pcm:file=%o %i",
                                         },
                            },
@@ -588,9 +681,23 @@ my $opts;
                                           ESTR => sub { 
                                                         $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
-                                                        "$eopts -y -i %i $opts %o"
+                                                        "-y -i %i $eopts $opts %o"
                                                       },
                                           
+                                          PROMPT => {
+                                                      BITRATE  => 1,
+                                                      FREQ     => 1,
+                                                      CHANNELS => 1,
+                                                    },
+                                        },
+                                        
+                              avconv => {
+                                          NAME => "avconv",
+                                          ESTR => sub {
+                                                        $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                        $opts = '' if $defopts == 0;
+                                                        "-y -i %i $eopts $opts %o"
+                                                      },
                                           PROMPT => {
                                                       BITRATE  => 1,
                                                       FREQ     => 1,
@@ -623,6 +730,11 @@ my $opts;
                                           NAME => "ffmpeg",
                                           DSTR => sub { "$dopts -y -i %i %o" },
                                         },
+                              
+                              avconv => {
+                                          NAME => "avconv",
+                                          DSTR => sub { "$dopts -y -i %i %o" },
+                                        },
                            },
 
                 TAGS    => {
@@ -643,7 +755,21 @@ my $opts;
                                           ESTR => sub { 
                                                         $opts = "-ar $freq -ac $channels" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
-                                                        "$eopts -y -i %i $opts %o" 
+                                                        "-y -i %i $eopts $opts %o" 
+                                                      },
+                                          
+                                          PROMPT => {
+                                                      FREQ     => 1,
+                                                      CHANNELS => 1,
+                                                    },
+                                        },
+                                        
+                              avconv => {
+                                          NAME => 'avconv',
+                                          ESTR => sub {
+                                                        $opts = "-ar $freq -ac $channels" if $defopts == 1;
+                                                        $opts = '' if $defopts == 0;
+                                                        "-y -i %i $eopts $opts %o"
                                                       },
                                           
                                           PROMPT => {
@@ -657,6 +783,16 @@ my $opts;
                              mplayer => {
                                           NAME => 'mplayer',
                                           DSTR => sub { "-vc null -vo null -ao pcm:file=%o %i" },
+                                        },
+                                        
+                              ffmpeg => {
+                                          NAME => 'ffmpeg',
+                                          DSTR => sub { "$dopts -y -i %i %o" },
+                                        },
+                                        
+                              avconv => {
+                                          NAME => 'avconv',
+                                          DSTR => sub { "$dopts -y -i %i %o" },
                                         },
                            },
  
@@ -722,6 +858,20 @@ my $opts;
                                                     CHANNELS => 1,
                                                   },
                                       },
+                                      
+                            avconv => {
+                                        NAME => 'avconv',
+                                        ESTR => sub {
+                                                      $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                      $opts = '' if $defopts == 0;
+                                                      "-y -i %i $eopts $opts %o"
+                                                    },
+                                        PROMPT => {
+                                                    BITRATE  => 1,
+                                                    FREQ     => 1,
+                                                    CHANNELS => 1,
+                                                  },
+                                      },
  
                                sox => {
                                         NAME => "sox",
@@ -747,6 +897,11 @@ my $opts;
                             ffmpeg => {
                                         NAME => "ffmpeg",
                                         DSTR => sub { "$dopts -y -i %i %o" },
+                                      },
+                                      
+                            avconv => {
+                                        NAME => 'avconv',
+                                        DSTR => sub { "$dopts -y -i %i %O" },
                                       },
 
                            mplayer => {
@@ -792,9 +947,24 @@ my $opts;
                                           ESTR => sub { 
                                                         $opts = "-ab $bitrate.k -ar $freq -ac $channels -codec:a libvorbis" if $defopts == 1;
                                                         $opts = '' if $defopts == 0;
-                                                        "$eopts -y -i %i $opts %o" 
+                                                        "-y -i %i $eopts $opts %o" 
                                                       },
                                           
+                                          PROMPT => {
+                                                      BITRATE  => 1,
+                                                      FREQ     => 1,
+                                                      CHANNELS => 1,
+                                                    },
+                                        },
+                              
+                              avconv => {
+                                          NAME => 'avconv',
+                                          ESTR => sub {
+                                                        $opts = "-ab $bitrate.k -ar $freq -ac $channels -codec:a libvorbis" if $defopts == 1;
+                                                        $opts = '' if $defopts == 0;
+                                                        "-y -i %i $eopts $opts %o"
+                                                      },
+                                                      
                                           PROMPT => {
                                                       BITRATE  => 1,
                                                       FREQ     => 1,
@@ -825,6 +995,11 @@ my $opts;
 
                               ffmpeg => {
                                           NAME => "ffmpeg",
+                                          DSTR => sub { "$dopts -y -i %i %o" },
+                                        },
+                                        
+                              avconv => {
+                                          NAME => 'avconv',
                                           DSTR => sub { "$dopts -y -i %i %o" },
                                         },
 
@@ -861,12 +1036,47 @@ my $opts;
                                                         },
                                             PROMPT => { SPXQUAL => 1 },
                                           },
+                                          
+                                ffmpeg => {
+                                            NAME => 'ffmpeg',
+                                            ESTR => sub {
+                                                          $opts = "--bitrate $bitrate.k" if $defopts == 1;
+                                                          $opts = '' if $defopts == 0;
+                                                          "-y -i %i $eopts $opts %o"
+                                                        },
+                                                        
+                                            PROMPT => {
+                                                        BITRATE => 1,
+                                                      },
+                                          },
+                                          
+                                avconv => {
+                                            NAME => 'avconv',
+                                            ESTR => sub {
+                                                          $opts = "--bitrate $bitrate.k" if $defopts == 1;
+                                                          $opts = '' if $defopts == 0;
+                                                          "-y -i $eopts $opts %o"
+                                                        },
+                                            PROMPT => {
+                                                        BITRATE => 1,
+                                                      },
+                                          },
                            },
                            
                 DECODER => {
                               speexdec => {
                                             NAME => "speexdec",
                                             DSTR => sub { "$dopts %i %o" },
+                                          },
+                                          
+                                ffmpeg => {
+                                            NAME => 'ffmpeg',
+                                            DSTR => sub { "$dopts -y -i %i %o" },
+                                          },
+                                          
+                                avconv => {
+                                            NAME => 'avconv',
+                                            DSTR => sub { "$dopts -y -i %i %o" },
                                           },
                            },
                 
@@ -939,7 +1149,7 @@ my $opts;
                                         ESTR => sub { 
                                                       $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
                                                       $opts = '' if $defopts == 0;
-                                                      "$eopts -y -i %i $opts %o" 
+                                                      "-y -i %i $eopts $opts %o" 
                                                     },
                                         
                                       PROMPT => {
@@ -947,6 +1157,20 @@ my $opts;
                                                     FREQ     => 1,
                                                     CHANNELS => 1,
                                                  },
+                                      },
+                                      
+                            avconv => {
+                                        NAME => 'avconv',
+                                        ESTR => sub {
+                                                      $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                      $opts = '' if $defopts == 1;
+                                                      "-y -i %i $eopts $opts %o"
+                                                    },
+                                        PROMPT => {
+                                                    BITRATE  => 1,
+                                                    FREQ     => 1,
+                                                    CHANNELS => 1,
+                                                  },
                                       },
                            },
 
@@ -958,6 +1182,11 @@ my $opts;
                                     
                             ffmpeg => {
                                         NAME => "ffmpeg",
+                                        DSTR => sub { "$dopts -y -i %i %o" },
+                                      },
+                                    
+                            avconv => {
+                                        NAME => 'avconv',
                                         DSTR => sub { "$dopts -y -i %i %o" },
                                       },
 
@@ -1123,6 +1352,35 @@ my $opts;
                                                     },
                                         PROMPT => { AACQUAL => 1 },
                                       },
+                                      
+                            ffmpeg => {
+                                        NAME => 'ffmpeg',
+                                        ESTR => sub {
+                                                      $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                      $opts = '' if $defopts == 0;
+                                                      "-y -i %i $eopts $opts %o"
+                                                    },
+                                        
+                                        PROMPT => {
+                                                    BITRATE  => 1,
+                                                    FREQ     => 1,
+                                                    CHANNELS => 1,
+                                                  },
+                                      },
+                                      
+                            avconv => {
+                                        NAME => 'avconv',
+                                        ESTR => sub {
+                                                      $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                      $opts = '' if $defopts == 1,
+                                                    },
+                                                    
+                                        PROMPT => {
+                                                    BITRATE  => 1,
+                                                    FREQ     => 1,
+                                                    CHANNELS => 1,
+                                                  },
+                                      },
                            },
                            
                 DECODER => {
@@ -1133,6 +1391,11 @@ my $opts;
                               
                             ffmpeg => {
                                         NAME => "ffmpeg",
+                                        DSTR => sub { "$dopts -y -i %i %o" },
+                                      },
+                                      
+                            avconv => {
+                                        NAME => 'avconv',
                                         DSTR => sub { "$dopts -y -i %i %o" },
                                       },
 
@@ -1171,7 +1434,7 @@ my $opts;
                                       ESTR => sub {
                                                     $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
                                                     $opts = '' if $defopts == 0;
-                                                    "$eopts -y -i %i $opts %o"
+                                                    "-y -i %i $eopts $opts %o"
                                                   },
                                                   
                                       PRIMPT => {
@@ -1181,6 +1444,20 @@ my $opts;
                                                 },
                                     },
                                     
+                          avconv => {
+                                      NAME => 'avconv',
+                                      ESTR => sub {
+                                                    $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                    $opts = '' if $defopts == 0;
+                                                    "-y -i %i $eopts $opts %o"
+                                                  },
+                                                  
+                                      PROMPT => {
+                                                  BITRATE  => 1,
+                                                  FREQ     => 1,
+                                                  CHANNELS => 1,
+                                                },
+                                    },
                            },
                              
                 DECODER => {
@@ -1192,6 +1469,11 @@ my $opts;
 
                           ffmpeg => { 
                                       NAME => "ffmpeg",
+                                      DSTR => sub { "$dopts -y -i %i %o" },
+                                    },
+                                    
+                          avconv => {
+                                      NAME => 'avconv',
                                       DSTR => sub { "$dopts -y -i %i %o" },
                                     },
 
@@ -1239,6 +1521,21 @@ my $opts;
                                                 CHANNELS => 1,
                                                },
                                      },
+                                     
+                           avconv => {
+                                       NAME => 'avconv',
+                                       ESTR => sub {
+                                                     $opts = "-ab $bitrate.k -ar $freq -ac $channels" if $defopts == 1;
+                                                     $opts = '' if $defopts == 0;
+                                                     "-y -i %i $eopts $opts %o"
+                                                   },
+                                                   
+                                       PROMPT => {
+                                                   BITRATE  => 1,
+                                                   FREQ     => 1,
+                                                   CHANNELS => 1,
+                                                 },
+                                     },
                            },
                 
                 DECODER => {
@@ -1250,6 +1547,11 @@ my $opts;
                                        
                            ffmpeg => {
                                        NAME => "ffmpeg", 
+                                       DSTR => sub { "$dopts -y -i %i %o" },
+                                     },
+                                     
+                           avconv => {
+                                       NAME => 'avconv',
                                        DSTR => sub { "$dopts -y -i %i %o" },
                                      },
 
@@ -1297,7 +1599,17 @@ my $opts;
 
                           mplayer => {
                                        NAME => "mplayer",
-                                       DSTR => sub { "-vc null -vo null -ao pcm:file=%o %i" },
+                                       DSTR => sub { "$dopts -vc null -vo null -ao pcm:file=%o %i" },
+                                     },
+                                     
+                           ffmpeg => {
+                                       NAME => 'ffmpeg',
+                                       DSTR => sub { "$dopts -y -i %i %o" },
+                                     },
+                                     
+                           avconv => {
+                                       NAME => 'avconv',
+                                       DSTR => sub { "$dopts -y -i %i %o" },
                                      },
                            },
 
@@ -1333,6 +1645,16 @@ my $opts;
                             mpcdec => {
                                         NAME => "mpcdec",
                                         DSTR => sub { "$dopts %i %o" },
+                                      },
+                                      
+                            ffmpeg => {
+                                        NAME => 'ffmpeg',
+                                        DSTR => sub { "$dopts -y -i %i %o" },
+                                      },
+                                      
+                            avconv => {
+                                        NAME => 'avconv',
+                                        DSTR => sub { "$dopts -y -i %i %o" },
                                       },
 
                            mplayer => {
@@ -1376,6 +1698,16 @@ my $opts;
                                         NAME => "mpcdec",
                                         DSTR => sub { "$dopts %i %o" },
                                       },
+                                      
+                            ffmpeg => {
+                                        NAME => 'ffmpeg',
+                                        DSTR => sub { "$dopts -y -i %i %o" },
+                                      },
+                            
+                            avconv => {
+                                        NAME => 'avconv',
+                                        DSTR => sub { "$dopts -y -i %i %o" },
+                                      },
 
                            mplayer => {
                                         NAME => "mplayer",
@@ -1387,6 +1719,40 @@ my $opts;
                              READ   => 1,
                              WRITE  => 1,
                              MODULE => "Audio::Musepack",
+                           },
+               },
+
+       off => {
+                DEFAULT_ENCODER => 'off',
+                DEFAULT_DECODER => 'off',
+                
+                ENCODER => {
+                             off => {
+                                      NAME => 'off',
+                                      ESTR => sub {
+                                                    $opts = "--mode $ofmode --optimize $ofopt" if $defopts == 1;
+                                                    $opts = '' if $defopts == 0;
+                                                    "$eopts --overwrite $opts %i --output %o"
+                                                  },
+                                      
+                                      PROMPT => {
+                                                  OFMODE => 1,
+                                                  OFOPT  => 1,
+                                                },
+                                    },
+                           },
+                           
+                DECODER => {
+                             off => {
+                                      NAME => 'off',
+                                      DSTR => sub { "$dopts --overwrite --decode %i --output %o" },
+                                    },
+                           },
+
+                 TAGS   => {
+                             READ   => 0,
+                             WRITE  => 0,
+                             MODULE => undef,
                            },
                },
 
@@ -1418,7 +1784,7 @@ my $opts;
                                      },
                            },
 
-                TAGS    => {
+                   TAGS => {
                              READ   => 0,
                              WRITE  => 0,
                              MODULE => undef,
@@ -1453,7 +1819,7 @@ my $opts;
                                      },
                            },
 
-                TAGS    => {
+                   TAGS => {
                              READ   => 0,
                              WRITE  => 0,
                              MODULE => undef,
@@ -1485,7 +1851,7 @@ my $opts;
                                       },
                            },
 
-                TAGS    => {
+                   TAGS => {
                              READ   => 0,
                              WRITE  => 0,
                              MODULE => undef,
@@ -1517,7 +1883,7 @@ my $opts;
                                       },
                            },
 
-                TAGS    => {
+                   TAGS => {
                              READ   => 0,
                              WRITE  => 0,
                              MODULE => undef,
@@ -1533,7 +1899,8 @@ my $opts;
                               ttaenc => {
                                           NAME => "ttaenc",
                                           ESTR => sub { "$eopts -e %i -o %o" },
-                                        },
+                                          PROMPT => { NONE => 0, },
+                                        },                                                          
                            },
                 
                 DECODER => {
@@ -1546,6 +1913,11 @@ my $opts;
                                           NAME => "ffmpeg",
                                           DSTR => sub { "$dopts -y -i %i %o" },
                                         },
+                                        
+                              avconv => {
+                                          NAME => 'avconv',
+                                          DSTR => sub { "$dopts -y -i %i %o" },
+                                        },
 
                              mplayer => {
                                           NAME => "mplayer",
@@ -1553,7 +1925,7 @@ my $opts;
                                         },
                            },
                                         
-                TAGS    => {
+                   TAGS => {
                              READ   => 0,
                              WRITE  => 0,
                              MODULE => undef,
@@ -1569,6 +1941,7 @@ my $opts;
                               la => {
                                       NAME => "la",
                                       ESTR => sub { "-overwrite $eopts %i %o" },
+                                      PROMPT => { NONE => 0, },
                                     },
                            },
                 
@@ -1579,7 +1952,7 @@ my $opts;
                                     },
                            },
 
-                TAGS    => {
+                   TAGS => {
                              READ   => 0,
                              WRITE  => 0,
                              MODULE => undef,
@@ -1594,7 +1967,20 @@ my $opts;
                 ENCODER => {
                               wavpack => {
                                            NAME => "wavpack",
-                                           ESTR => sub { "$eopts -y %i -o %o" },
+                                           ESTR => sub { "$eopts -h -y %i -o %o" },
+                                           PROMPT => { NONE => 0, },
+                                         },
+                                         
+                               ffmpeg => {
+                                           NAME => 'ffmpeg',
+                                           ESTR => sub { "-y -i %i $eopts %o" },
+                                           PROMPT => { NONE => 0, },
+                                         },
+                                         
+                               avconv => {
+                                           NAME => 'avconv',
+                                           ESTR => sub { "-y -i %i $eopts %o" },
+                                           PROMPT => { NONE => 0, },
                                          },
                            },
                 
@@ -1606,6 +1992,11 @@ my $opts;
 
                                 ffmpeg => {
                                             NAME => "ffmpeg",
+                                            DSTR => sub { "$dopts -y -i %i %o" },
+                                          },
+                                
+                                avconv => {
+                                            NAME => 'avconv',
                                             DSTR => sub { "$dopts -y -i %i %o" },
                                           },
 
@@ -1631,6 +2022,7 @@ my $opts;
                               mv => {
                                       NAME => "mv",
                                       ESTR => sub { "%i %o" },
+                                      PROMPT => { NONE => 0, },
                                     },
                            },
                            
@@ -1659,7 +2051,7 @@ foreach (@ffmpeg_codecs) {
    $run{$_}{DEFAULT_DECODER}        = "ffmpeg";
    $run{$_}{ENCODER}{ffmpeg}{NAME}  = "ffmpeg";
    $run{$_}{DECODER}{ffmpeg}{NAME}  = "ffmpeg";
-   $run{$_}{ENCODER}{ffmpeg}{ESTR}  = sub { "$eopts -y -i %i -ab $bitrate.k -ar $freq -ac $channels %o" };
+   $run{$_}{ENCODER}{ffmpeg}{ESTR}  = sub { "-y -i %i $eopts -ab $bitrate.k -ar $freq -ac $channels %o" };
    $run{$_}{DECODER}{ffmpeg}{DSTR}  = sub { "$dopts -y -i %i %o" };
    $run{$_}{TAGS}{READ}             = 0;
    $run{$_}{TAGS}{WRITE}            = 0;
@@ -1670,6 +2062,23 @@ foreach (@ffmpeg_codecs) {
    $run{$_}{ENCODER}{ffmpeg}{PROMPT}{CHANNELS} = 1;
 
 }
+
+# add avconv to list of supported ffmpeg/avconv codecs as optional encoder/decoder
+foreach (@ffmpeg_codecs) {
+
+   $run{$_}{ENCODER}{avconv}{NAME}  = "avconv";
+   $run{$_}{DECODER}{avconv}{NAME}  = "avconv";
+   $run{$_}{ENCODER}{avconv}{ESTR}  = sub { "-y -i %i $eopts -ab $bitrate.k -ar $freq -ac $channels %o" };
+   $run{$_}{DECODER}{avconv}{DSTR}  = sub { "$dopts -y -i %i %o" };
+   $run{$_}{TAGS}{READ}             = 0;
+   $run{$_}{TAGS}{WRITE}            = 0;
+   $run{$_}{TAGS}{MODULE}           = undef;
+                           
+   $run{$_}{ENCODER}{avconv}{PROMPT}{BITRATE}  = 1;
+   $run{$_}{ENCODER}{avconv}{PROMPT}{FREQ}     = 1;
+   $run{$_}{ENCODER}{avconv}{PROMPT}{CHANNELS} = 1;
+                                    
+}                                   
 
 # support reading of WMA tags using the Audio::WMA module
 $run{wma}{TAGS}{READ}   = 1;
@@ -1691,7 +2100,7 @@ foreach (@movie_codecs) {
    $run{$_}{DEFAULT_DECODER}        = "ffmpeg";
    $run{$_}{DECODER}{mplayer}{NAME} = "mplayer";
    $run{$_}{DECODER}{ffmpeg}{NAME}  = "ffmpeg";
-   $run{$_}{DECODER}{mplayer}{DSTR} = sub { "-vc null -vo null -ao pcm:file=%o %i" };
+   $run{$_}{DECODER}{mplayer}{DSTR} = sub { "$dopts -vc null -vo null -ao pcm:file=%o %i" };
    $run{$_}{DECODER}{ffmpeg}{DSTR}  = sub { "$dopts -i %i %o"; };
    $run{$_}{TAGS}{READ}             = 0;
    $run{$_}{TAGS}{WRITE}            = 0;
@@ -1971,7 +2380,7 @@ sub convert {
     my $nl = 0; $nl = 2 if $verbose;
           
        pnotice("converting"," [$iname.$infmt] -> [$to] ", $nl);
-       pnotice("debug","$run{$if}{DECODER}{$decoder}{NAME} $decode_string", 2) if $dryrun;
+       pnotice("debug","\n$run{$if}{DECODER}{$decoder}{NAME} $decode_string", 2) if $dryrun;
 
        # decode input file to temporary wav
        system("$run{$if}{DECODER}{$decoder}{NAME} $decode_string $silent") if not $dryrun;
@@ -1994,15 +2403,16 @@ sub convert {
     my $tag_opts = format_tags($to); # tag options for mp4/m4a/m4b/mpc/mpp/bonk/spx/wv
     
     my $encode_string = $run{$to}{ENCODER}{$encoder}{ESTR}->();
-       $encode_string =~ s/%i/\"$outf.$$.wav\"/; 
-       $encode_string =~ s/%o/$tag_opts \"$outf.$to\"/ if $tag_opts ne " ";
-       $encode_string =~ s/%o/\"$outf.$to\"/           if $tag_opts eq " ";
+       $encode_string =~ s/%i/$tag_opts \"$outf.$$.wav\"/  if $to =~ /mpc|mpp/;
+       $encode_string =~ s/%i/\"$outf.$$.wav\"/            if $to !~ /mpc|mpp/;
+       $encode_string =~ s/%o/$tag_opts \"$outf.$to\"/     if $tag_opts ne " " and $to !~ /mpc|mpp/;
+       $encode_string =~ s/%o/\"$outf.$to\"/               if $tag_opts eq " " or $to =~ /mpc|mpp/;
        $encode_string =~ s/(\$|\\)/\\$1/g;
-
+       
        # read tag options from command line if present
        get_user_tags();
 
-       pnotice("debug","$run{$to}{ENCODER}{$encoder}{NAME} $encode_string", 2) if $dryrun;
+       pnotice("debug","\n$run{$to}{ENCODER}{$encoder}{NAME} $encode_string", 2) if $dryrun;
 
        # encode temporary WAV to desired output format.
        system("$run{$to}{ENCODER}{$encoder}{NAME} $encode_string $silent") if not $dryrun;
@@ -2249,7 +2659,7 @@ sub format_tags {
               }
         } 
                 
-        when (/^mpc$|^mpp$/) { return "--tag \"Title=$tag_name{title}\" --tag \"Track=$tag_name{track}\" --tag \"Artist=$tag_name{artist}\" --tag \"Album=$tag_name{album}\" --tag \"Comment=$tag_name{comment}\" --tag \"Year=$tag_name{year}\" --tag \"Genre=$tag_name{genre}\""; }
+        when (/^mpc$|^mpp$/) { return "--artist \"$tag_name{artist}\" --title \"$tag_name{title}\" --album \"$tag_name{album}\" --track \"$tag_name{track}\" --genre \"$tag_name{genre}\" --year \"$tag_name{year}\" --comment \"$tag_name{comment}\""; }
         when (/^wv$/)    { return "-w \"Title=$tag_name{title}\" -w \"Track=$tag_name{track}\" -w \"Artist=$tag_name{artist}\" -w \"Album=$tag_name{album}\" -w \"Comment=$tag_name{comment}\" -w \"Year=$tag_name{year}\" -w \"Genre=$tag_name{genre}\""; }
         when (/^bonk$/)  { return "-t \"$tag_name{title}\" -a \"$tag_name{artist}\" -c \"$tag_name{comment}\""; }
         when (/^spx$/)   { return "--author \"$tag_name{artist}\" --title \"$tag_name{title}\" --comment \"date=$tag_name{year}\" --comment \"track=$tag_name{track}\" --comment \"album=$tag_name{album}\" --comment \"genre=$tag_name{genre}\" --comment \"comment=$tag_name{comment}\""; }
@@ -2609,6 +3019,7 @@ sub show_encoders {
     foreach (sort(keys %{$run{$my_encoder}{ENCODER}})) {        
         print "$_ -> ";
         print "installed" if `which $_ 2>/dev/null`;
+        print "not found" if not `which $_ 2>/dev/null`;
         print " (default)" if $_ eq $run{$my_encoder}{DEFAULT_ENCODER};
         print "\n";
     }
@@ -2712,7 +3123,7 @@ sub rip_cd {
  
         $on =~ s/\//_/g;
 
-        print  "cdparanoia -d $device $tno $on.wav\n\n"  if $dryrun;
+        print  "\ncdparanoia -d $device $tno $on.wav\n\n"  if $dryrun;
         system("cdparanoia -d $device $tno \"$on.wav\"") if not $dryrun;
 
     if ($to !~ /wav/i) {
@@ -3216,7 +3627,7 @@ set ogg quality level to I<num>. -1, very low and 10 very high, default 3
 
 B<--spxqual> I<num>
 
-set speex quality level to I<num>. 0-10, default 8
+set speex quality level to I<num>. 0-10, default 8 (use --bitrate <num> when using ffmpeg/avconv as encoder)
 
 B<--aacqual> I<num>
 

@@ -49,7 +49,8 @@ wavpack             4.60.1     http://www.wavpack.com
 ofr/ofs              4.520     http://www.LosslessAudio.org
 ttaenc               3.4.1     http://www.true-audio.com
 lpac                  3.08     http://www.nue.tu-berlin.de/menue/mitarbeiter/ehemalige_mitarbeiter/tilman_liebchen/lpac_-_lossless_audio_codec_for_windows_and_linux/
-ffmpeg                 2.0     http://www.ffmpeg.org/
+ffmpeg                 2.0     http://www.ffmpeg.org
+libav (avconv)       0.0.5     http://www.libav.org
 la                     0.4     http://www.lossless-audio.com
 bonk                   0.6     http://www.logarithmic.net/pfh/bonk
 sox                12.17.8     http://sox.sourceforge.net/
