@@ -4,11 +4,11 @@ Pre-RC1:
 
 + added ffmpeg-conf.sh and libav-conf.sh to extra/ dir.
   this shows what libs and options are needed for full support for pacpl
-+ added support avconv (libav) encoder/decoder
++ added support for libav (avconv) encoder/decoder - ffmpeg fork
 + added ffmpeg/avconv support to various formats as available encoder/decoder
 + added support for adts audio format
 
-% fixed mpc tagging using the new SV8 release. (options have to come BEFORE
+% fixed mpc tagging using the new SV7/SV8 releases. (options have to come BEFORE
   the input and output file)
 % fixed all ffmpeg encode instances to apply $eopts (user options) when
   --defopts=0 to the output file as opposed to the input. 

@@ -3394,14 +3394,16 @@ A tool for converting multiple audio types from one format to another.
 
 It supports the following audio types: 
 --------------------------------------
-AAC, AC3, AIFF, APE, AU, AVR, BONK, CAF, CDR, DTS, FAP, FLA, FLAC, IRCAM, LA,
-LPAC, MAT, MAT4, MAT5, M4A, MMF, MP2, MP3, MP4, MPC, MPP, NIST, OFF, OFR, 
-OFS, OPUS, OGG, PAC, PAF, PVF, RA, RAM, RAW, SD2, SF, SHN, SMP, SND, SPX, 
-TTA, VOC, VQF, W64, WAV, WMA, and WV.
+
+AAC, AC3, ADTS, AIFF, APE, AU, AVR, BONK, CAF, CDR, DTS, FAP, FLA, FLAC, 
+IRCAM, LA, LPAC, MAT, MAT4, MAT5, M4A, MMF, MP2, MP3, MP4, MPC, MPP, NIST, 
+OFF, OFR, OFS, OPUS, OGG, PAC, PAF, PVF, RA, RAM, RAW, SD2, SF, SHN, SMP,
+SND, SPX, TTA, VOC, VQF, W64, WAV, WMA, and WV.
  
 It can also extract audio from the following video extensions:
 --------------------------------------------------------------
-RM, RV, ASF, DivX, MPG, MKV, MPEG, AVI, MOV, OGM, QT, VCD, SVCD, M4V, 
+
+RM, RV, ASF, DIVX, MPG, MKV, MPEG, AVI, MOV, OGM, QT, VCD, SVCD, M4V, 
 NSV, NUV, PSP, SMK, VOB, FLV, and WMV. 
 
 A CD ripping function with CDDB support, batch conversion, tag preservation 
